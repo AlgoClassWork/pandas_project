@@ -173,3 +173,103 @@ else:
     print("❌ Не подтверждается.\n")
 
 print("✅ Проверка всех 15 гипотез завершена.")
+
+
+
+# === ВИЗУАЛИЗАЦИЯ ГИПОТЕЗ ===
+import matplotlib.pyplot as plt
+plt.style.use('seaborn-v0_8-darkgrid')
+plt.rcParams['figure.figsize'] = (10, 6)
+
+# === 1. Средний ВВП по регионам (bar chart) ===
+by_region.plot(kind='bar', color='cornflowerblue')
+plt.title('Средний ВВП ($ per capita) по регионам')
+plt.ylabel('GDP ($ per capita)')
+plt.xlabel('Регион')
+plt.tight_layout()
+plt.show()
+
+# === 2. Климат и ВВП (line chart) ===
+climate_gdp.sort_index().plot(kind='line', marker='o', color='teal')
+plt.title('Средний ВВП в зависимости от климата')
+plt.xlabel('Климат (1–4)')
+plt.ylabel('GDP ($ per capita)')
+plt.tight_layout()
+plt.show()
+
+# === 3. Уровень грамотности по регионам (horizontal bar) ===
+lit_reg.sort_values().plot(kind='barh', color='mediumorchid')
+plt.title('Средняя грамотность (%) по регионам')
+plt.xlabel('Literacy (%)')
+plt.tight_layout()
+plt.show()
+
+# === 4. Младенческая смертность по регионам (boxplot) ===
+plt.figure()
+regions_to_plot = df[df['Region'].isin(['WESTERN EUROPE', 'SUB-SAHARAN AFRICA'])]
+regions_to_plot.boxplot(column='Infant mortality (per 1000 births)', by='Region', grid=False, patch_artist=True,
+                        boxprops=dict(facecolor='lightcoral'))
+plt.title('Младенческая смертность: Европа vs Африка')
+plt.suptitle('')
+plt.ylabel('Infant mortality (per 1000 births)')
+plt.tight_layout()
+plt.show()
+
+# === 5. Плотность населения и телефонизация (bar chart) ===
+density_phone.plot(kind='bar', color=['gold', 'orange', 'tomato', 'brown'])
+plt.title('Телефонизация в зависимости от плотности населения')
+plt.xlabel('Группа плотности')
+plt.ylabel('Phones (per 1000)')
+plt.tight_layout()
+plt.show()
+
+# === 6. Индустрия и ВВП (scatter plot) ===
+plt.scatter(df['Industry'], df['GDP ($ per capita)'], alpha=0.6, color='steelblue')
+plt.title('Зависимость ВВП от уровня индустриализации')
+plt.xlabel('Industry (доля экономики)')
+plt.ylabel('GDP ($ per capita)')
+plt.tight_layout()
+plt.show()
+
+# === 7. Рождаемость и ВВП (scatter plot с трендом) ===
+plt.scatter(df['Birthrate'], df['GDP ($ per capita)'], color='mediumseagreen', alpha=0.6)
+plt.title('Рождаемость и ВВП')
+plt.xlabel('Birthrate')
+plt.ylabel('GDP ($ per capita)')
+plt.grid(True)
+plt.tight_layout()
+plt.show()
+
+# === 8. Сфера услуг и ВВП (pie chart) ===
+plt.figure()
+plt.pie([service_high, service_low],
+        labels=['Service > 0.5', 'Service <= 0.5'],
+        autopct='%1.1f%%',
+        colors=['lightblue', 'lightgray'],
+        startangle=90)
+plt.title('Доля среднего ВВП у стран с развитой и слабой сферой услуг')
+plt.tight_layout()
+plt.show()
+
+# === 9. Миграция и ВВП (bar chart с аннотациями) ===
+plt.figure()
+bars = plt.bar(['Положительная миграция', 'Отрицательная миграция'],
+               [positive, negative],
+               color=['mediumseagreen', 'lightcoral'])
+plt.title('Миграция и ВВП')
+plt.ylabel('GDP ($ per capita)')
+for bar in bars:
+    plt.text(bar.get_x() + bar.get_width()/2, bar.get_height(),
+             f'{bar.get_height():.0f}', ha='center', va='bottom')
+plt.tight_layout()
+plt.show()
+
+# === 10. Распределение ВВП (histogram) ===
+plt.hist(df['GDP ($ per capita)'], bins=20, color='slateblue', edgecolor='white')
+plt.title('Распределение ВВП по странам')
+plt.xlabel('GDP ($ per capita)')
+plt.ylabel('Количество стран')
+plt.tight_layout()
+plt.show()
+
+print("📊 Визуализация завершена: использованы bar, line, scatter, box, pie и hist графики.")
