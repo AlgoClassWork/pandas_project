@@ -121,3 +121,67 @@ else:
     print("   ❌ Не подтверждается.\n")
 
 print("✅ Проверка 10 гипотез завершена.")
+
+
+import matplotlib.pyplot as plt
+
+# Настройки отображения
+plt.style.use('seaborn-v0_8')
+plt.rcParams['figure.figsize'] = (8, 5)
+
+# === Визуализация 1: ВВП vs Уровень грамотности ===
+df.plot(kind='scatter', x='Literacy (%)', y='GDP ($ per capita)', alpha=0.7, color='teal')
+plt.title('Зависимость ВВП от уровня грамотности')
+plt.xlabel('Грамотность, %')
+plt.ylabel('ВВП ($ на душу населения)')
+plt.grid(True)
+plt.show()
+
+# === Визуализация 2: ВВП vs Младенческая смертность ===
+df.plot(kind='scatter', x='Infant mortality (per 1000 births)', y='GDP ($ per capita)', color='red', alpha=0.6)
+plt.title('Зависимость ВВП от младенческой смертности')
+plt.xlabel('Младенческая смертность (на 1000)')
+plt.ylabel('ВВП ($ на душу населения)')
+plt.grid(True)
+plt.show()
+
+# === Визуализация 3: ВВП vs Телефоны на 1000 человек ===
+df.plot(kind='scatter', x='Phones (per 1000)', y='GDP ($ per capita)', color='green', alpha=0.6)
+plt.title('Зависимость ВВП от количества телефонов')
+plt.xlabel('Телефоны (на 1000 человек)')
+plt.ylabel('ВВП ($ на душу населения)')
+plt.grid(True)
+plt.show()
+
+# === Визуализация 4: Доля сельского хозяйства vs ВВП ===
+df.plot(kind='scatter', x='Agriculture', y='GDP ($ per capita)', color='orange', alpha=0.7)
+plt.title('Зависимость ВВП от доли сельского хозяйства')
+plt.xlabel('Сельское хозяйство (доля ВВП)')
+plt.ylabel('ВВП ($ на душу населения)')
+plt.grid(True)
+plt.show()
+
+# === Визуализация 5: Средний ВВП по регионам ===
+by_region.plot(kind='bar', color='skyblue')
+plt.title('Средний ВВП по регионам')
+plt.xlabel('Регион')
+plt.ylabel('Средний ВВП ($ на душу населения)')
+plt.xticks(rotation=75)
+plt.tight_layout()
+plt.show()
+
+# === Визуализация 6: Грамотность vs Младенческая смертность ===
+df.plot(kind='scatter', x='Literacy (%)', y='Infant mortality (per 1000 births)', color='purple', alpha=0.6)
+plt.title('Связь грамотности и младенческой смертности')
+plt.xlabel('Грамотность, %')
+plt.ylabel('Младенческая смертность (на 1000)')
+plt.grid(True)
+plt.show()
+
+# === Визуализация 7: ВВП vs Рождаемость ===
+df.plot(kind='scatter', x='Birthrate', y='GDP ($ per capita)', color='brown', alpha=0.6)
+plt.title('Зависимость ВВП от рождаемости')
+plt.xlabel('Рождаемость')
+plt.ylabel('ВВП ($ на душу населения)')
+plt.grid(True)
+plt.show()
